@@ -2,7 +2,7 @@
 
 [中文](README.md) | **English**
 
-An HD rendering and widescreen patch for **Road Rash: 30th Anniversary Edition** on Steam (build **26105967**). Works with both the **original English game** and the separately released [Chinese localization](https://github.com/OBLPlife/RoadRash-Chinese), using the same installer.
+An HD rendering and widescreen patch for **Road Rash: 30th Anniversary Edition** on Steam (build **26105967**). Works with both the **original English game** and the separately released [Chinese localization](https://github.com/OBLPlife/RoadRash30th-Chinese), using the same installer.
 
 ## Features
 
