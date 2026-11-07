@@ -1,6 +1,6 @@
 # Road Rash: 30th Anniversary Edition — HD & Widescreen Patch
 
-[简体中文](README.md) | **English**
+[中文](README.md) | **English**
 
 An HD rendering and widescreen patch for **Road Rash: 30th Anniversary Edition** on Steam (build **26105967**). Works with both the **original English game** and the separately released [Chinese localization](https://github.com/OBLPlife/RoadRash-Chinese), using the same installer.
 
