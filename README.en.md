@@ -1,8 +1,24 @@
 # Road Rash: 30th Anniversary Edition — Automatic Native Resolution & HD Rendering Patch
 
-[中文](README.md) | **English**
+For the Steam edition of **Road Rash: 30th Anniversary Edition**, build **26105967**. Automatically detects the current game-window resolution and redraws race scenes at that resolution instead of simply stretching the original image. Works with the English original and the separately localized Chinese edition.
 
-For **Road Rash: 30th Anniversary Edition** on Steam (build **26105967**). The patch automatically detects the game's current client-area dimensions and redraws race scenes at the corresponding resolution, adapting to different screen sizes and aspect ratios. The same installer supports the **original English game** and the separately released [Chinese localization](https://github.com/OBLPlife/RoadRash30th-Chinese).
+**Chinese localization:** [RoadRash30th-Chinese](https://github.com/OBLPlife/RoadRash30th-Chinese) | [简体中文](README.md)
+
+## Install and Restore
+
+**Install**
+
+1. Exit the game. Download `RoadRash_HD_Setup.exe` from [Releases](https://github.com/OBLPlife/RoadRash30th-HD/releases/latest).
+2. Place the EXE in the game folder, next to `RoadRash95.exe`.
+3. **Double-click the EXE → choose Install.** Once installation finishes, launch the game through Steam.
+
+**Resolution detection is automatic by default; no setup is needed.** To choose another internal rendering resolution, open **Graphics and Sound → Race Resolution** in the game.
+
+**Restore**
+
+Exit the game, double-click the same EXE, and choose **Restore** to restore the pre-installation executable and HD module. No PowerShell commands are required.
+
+The installer backs up the files it changes and leaves save files and translations untouched. When using the separate Chinese localization, **install the localization first, then the HD patch; restore in reverse order**.
 
 ## In-Game Screenshots
 
@@ -18,31 +34,19 @@ For **Road Rash: 30th Anniversary Edition** on Steam (build **26105967**). The p
 
 | Resolution List | Selected Resolution |
 | :---: | :---: |
-| ![In-game resolution list](screenshots/resolution-list.png) | ![3440 × 1440 resolution selected](screenshots/resolution-selected.png) |
+| ![Resolution list](screenshots/resolution-list.png) | ![3440 × 1440 resolution selected](screenshots/resolution-selected.png) |
 
-## Actual Features
+## Features
 
-- **Automatic resolution detection:** Reads the game's client-area width and height during rendering. In automatic mode, the rendering buffers and mappings follow the current window dimensions, including when they change.
-- **Native-resolution scene redraw:** Rasterizes the original scene geometry and textures—including race tracks, roads and objects—at the target resolution, rather than simply enlarging the legacy 640×480 race image.
-- **Aspect-ratio-aware camera and view:** Recalculates the logical camera width, projection and scene culling from the current width-to-height ratio, including standard 4:3, widescreen 16:9 and ultrawide 21:9, without a fixed aspect-ratio whitelist.
-- **Automatic or selectable rendering resolution:** Defaults to “Automatic (native)” at the current game-window dimensions. The in-game **Graphics and Sound → Race Resolution** menu also offers alternative internal rendering heights, with width calculated from the current aspect ratio; choices are saved in `RoadRashHD.ini`.
-- **Menu and text presentation:** Keeps original menu artwork centered at its correct proportions, extends surrounding space using mirrored/softened artwork, and maps interface and text overlays to the output size.
-- **Scene-rendering corrections:** Improves distant scenery, road edges and render continuity, reducing flicker, missing distant details and shifting seams.
+- **Automatic resolution detection:** Reads the current game-window size and updates rendering dimensions and mappings when it changes.
+- **Native-resolution redraw:** Renders tracks, roads, scene geometry and textured objects at the target resolution rather than upscaling the original 640×480 race image.
+- **Aspect-ratio adaptation:** Adjusts camera view and clipping for the current aspect ratio, including common 4:3, 16:9 and 21:9 displays.
+- **In-game resolution selection:** Use automatic native resolution or a lower internal rendering resolution; settings are saved.
+- **Menu and rendering fixes:** Keeps menu artwork centered at the correct proportions, extends the surrounding background, and improves distant details, flicker and road seams.
 
-The renderer hooks the game's original 640×480 high-detail drawing path and produces the output at the target dimensions.
+## Configuration (Optional)
 
-## Installation
-
-1. Exit the game.
-2. Download `RoadRash_HD_Setup.exe` from [Releases](https://github.com/OBLPlife/RoadRash30th-HD/releases) and place it in the game folder, next to `RoadRash95.exe`.
-3. Run the installer, then launch the game through Steam.
-4. Native-resolution detection is automatic by default. To choose a different internal rendering resolution, open **Graphics and Sound → Race Resolution**.
-
-**If you also use the Chinese localization, install the localization patch first, then the HD patch.**
-
-## Configuration and Restore
-
-You can edit `RoadRashHD.ini`:
+The default `RoadRashHD.ini` needs no manual changes:
 
 ```ini
 [Graphics]
@@ -50,30 +54,25 @@ Enabled=1
 RenderHeight=0
 ```
 
-`RenderHeight=0` is the default automatic mode: it follows the current game-window client area (or the game's fullscreen drawing area), redrawing at that resolution and aspect ratio. A positive value specifies an internal rendering height; width follows the window's aspect ratio, while the final image still fits the current window.
+`RenderHeight=0` follows the current game-window dimensions. A positive number sets an internal rendering height, with width calculated from the window's aspect ratio. Existing settings are preserved on installation.
 
-The installer backs up the existing executable and HD module. To restore the previous state, exit the game and run this command in PowerShell from the game folder:
+## Build from Source
 
-```powershell
-.\RoadRash_HD_Setup.exe /restore
-```
-
-## Building from Source
-
-Requires Windows, Python 3.10+, Visual Studio C++ Desktop Development tools and the Windows SDK, plus the .NET Framework 4.x compiler.
+Requires Windows, Python 3.10+, Visual Studio C++ Desktop Development tools and Windows SDK, plus a .NET Framework 4.x compiler.
 
 ```powershell
 python build.py
 ```
 
-The installer will be generated at `dist/RoadRash_HD_Setup.exe`. To build the test executables as well:
+The installer is generated at `dist/RoadRash_HD_Setup.exe`. To build and run the related tests:
 
 ```powershell
 python build.py --tests
+python tests/test_installer.py --original-dir "D:\Games\RoadRashOriginal"
 ```
 
-Rendering code is in `src/`, installer code is in `Installer.cs` and `RendererPatch.cs`, and tests are in `tests/`.
+The rendering implementation is in `src/`; installation and restoration are in `Installer.cs`, `PatchWindow.cs` and `RendererPatch.cs`; tests are in `tests/`. The build does not package the original game.
 
 ## License
 
-This project is licensed under the [PolyForm Noncommercial License 1.0.0](LICENSE). Noncommercial use, modification and distribution are permitted under its terms. Commercial use or resale requires separate permission.
+This project uses the [PolyForm Noncommercial License 1.0.0](LICENSE). Noncommercial use, modification and redistribution are permitted; **unauthorized commercial use or resale is prohibited**.
