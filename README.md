@@ -1,8 +1,10 @@
+[中文](README.md) | [English](README.en.md)
+
 # 暴力摩托：30周年纪念版｜原生分辨率自动适配与高清重绘补丁
 
 适用于 Steam《暴力摩托：30周年纪念版》**build 26105967**。自动检测当前游戏窗口分辨率，并按实际尺寸重新绘制比赛场景，不是简单拉伸原版画面。支持英文原版及已安装独立汉化补丁的版本。
 
-**汉化补丁请移步：** [RoadRash30th-Chinese](https://github.com/OBLPlife/RoadRash30th-Chinese) ｜ [English](README.en.md)
+**汉化补丁请移步：** [RoadRash30th-Chinese](https://github.com/OBLPlife/RoadRash30th-Chinese)
 
 ## 安装与还原
 
