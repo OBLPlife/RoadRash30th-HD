@@ -4,6 +4,18 @@
 
 An HD rendering and widescreen patch for **Road Rash: 30th Anniversary Edition** on Steam (build **26105967**). Works with both the **original English game** and the separately released [Chinese localization](https://github.com/OBLPlife/RoadRash30th-Chinese), using the same installer.
 
+## In-Game Screenshots
+
+These screenshots show the HD and widescreen patch in use. The menu screenshots also have the [separate Simplified Chinese patch](https://github.com/OBLPlife/RoadRash30th-Chinese) installed; **the HD patch itself does not include localization**.
+
+**Widescreen racing gameplay**
+
+![Widescreen gameplay](screenshots/gameplay-wide.png)
+
+| Game Mode Menu | Restroom Menu |
+| :---: | :---: |
+| ![Game Mode Menu](screenshots/menu-game-mode.png) | ![Restroom Menu](screenshots/menu-restroom.png) |
+
 ## Features
 
 - **Native high-resolution rendering** for race scenes, roads and textured objects.
@@ -15,7 +27,7 @@ An HD rendering and widescreen patch for **Road Rash: 30th Anniversary Edition**
 ## Installation
 
 1. Exit the game.
-2. Download `RoadRash_HD_Setup.exe` from [Releases](https://github.com/OBLPlife/RoadRash-HD/releases) and place it in the game folder, next to `RoadRash95.exe`.
+2. Download `RoadRash_HD_Setup.exe` from [Releases](https://github.com/OBLPlife/RoadRash30th-HD/releases) and place it in the game folder, next to `RoadRash95.exe`.
 3. Run the installer, then launch the game through Steam.
 4. Open **Graphics and Sound → Race Resolution** to select a resolution. Restart the game to apply the change.
 
