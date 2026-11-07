@@ -8,17 +8,17 @@ An HD rendering and widescreen patch for **Road Rash: 30th Anniversary Edition**
 
 **Widescreen racing gameplay**
 
-![Widescreen gameplay](screenshots/gameplay-wide.jpg)
+![Widescreen gameplay](screenshots/gameplay-wide.png)
 
 | Game Mode Menu | Restroom Menu |
 | :---: | :---: |
-| ![Game Mode Menu](screenshots/menu-game-mode.jpg) | ![Restroom Menu](screenshots/menu-restroom.jpg) |
+| ![Game Mode Menu](screenshots/menu-game-mode.png) | ![Restroom Menu](screenshots/menu-restroom.png) |
 
 **In-game resolution settings (3440 × 1440)**
 
 | Resolution List | Selected Resolution |
 | :---: | :---: |
-| ![In-game resolution list](screenshots/resolution-list.jpg) | ![3440 × 1440 resolution selected](screenshots/resolution-selected.jpg) |
+| ![In-game resolution list](screenshots/resolution-list.png) | ![3440 × 1440 resolution selected](screenshots/resolution-selected.png) |
 
 ## Features
 
