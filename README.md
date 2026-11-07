@@ -1,8 +1,10 @@
 # 暴力摩托 30 周年纪念版｜高清与宽屏修复补丁
 
-**简体中文** | [English](README.en.md)
+**中文** | [English](README.en.md)
 
-适用于 Steam《暴力摩托：30 周年纪念版》（build **26105967**）。支持**英文原版**和安装了 [简体中文补丁](https://github.com/OBLPlife/RoadRash-Chinese) 的游戏，使用同一个安装包。
+适用于 Steam《暴力摩托：30 周年纪念版》（build **26105967**）。支持**英文原版**和已安装独立中文汉化补丁的版本，使用同一个安装包。
+
+**汉化补丁请移步：** [RoadRash-Chinese](https://github.com/OBLPlife/RoadRash-Chinese)
 
 ## 功能
 
