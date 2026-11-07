@@ -49,9 +49,10 @@ def build(vcvarsall, tests):
                     '/out:' + str(exe), '/win32manifest:' + str(ROOT / 'app.manifest'),
                     '/resource:' + str(work / 'RoadRashHD.dll') + ',RoadRashHD.dll',
                     '/resource:' + str(ROOT / 'RoadRashHD.ini') + ',RoadRashHD.ini',
-                    '/resource:' + str(ROOT / 'LICENSE') + ',LICENSE', '/reference:System.Windows.Forms.dll',
+                    '/resource:' + str(ROOT / 'LICENSE') + ',LICENSE', '/reference:System.Windows.Forms.dll', '/reference:System.Drawing.dll',
+                    str(ROOT / 'PatchWindow.cs'),
                     str(ROOT / 'Installer.cs'), str(ROOT / 'RendererPatch.cs')], check=True)
-    manifest = {'renderer_version': 4, 'license': 'PolyForm-Noncommercial-1.0.0',
+    manifest = {'renderer_version': 4, 'installer_version': '4.1.0', 'license': 'PolyForm-Noncommercial-1.0.0',
                 'game_files_embedded': False, 'localization_embedded': False,
                 'installer_bytes': exe.stat().st_size,
                 'installer_sha256': hashlib.sha256(exe.read_bytes()).hexdigest(),

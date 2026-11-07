@@ -6,6 +6,7 @@ import ctypes
 from ctypes import wintypes
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import tempfile
@@ -57,7 +58,14 @@ def run(original_dir, localized_dir):
         return log
 
     try:
-        assert '根目录' in execute(fixture('缺少游戏', None), success=False)
+        compiler = Path(os.environ.get('WINDIR', r'C:\Windows')) / 'Microsoft.NET/Framework/v4.0.30319/csc.exe'
+        window_test = build / 'window_test.exe'
+        subprocess.run([str(compiler), '/nologo', '/utf8output', '/out:' + str(window_test),
+                        '/win32manifest:' + str(ROOT / 'app.manifest'),
+                        '/reference:System.Windows.Forms.dll', '/reference:System.Drawing.dll',
+                        str(ROOT / 'tests/test_window.cs')], check=True)
+        missing = fixture('缺少游戏', None)
+        assert '根目录' in execute(missing, success=False)
         checks.append('missing root rejected')
         english_native = None
         for label, source in [('english', original_dir), ('chinese', localized_dir)]:
@@ -66,6 +74,9 @@ def run(original_dir, localized_dir):
             game = fixture(label + ' 中文路径 与 空格', source)
             before = (game / 'RoadRash95.exe').read_bytes()
             assert digest(before) in NATIVE, 'unsupported fixture input'
+            subprocess.run([str(window_test), str(game / '高清分辨率补丁.exe'), str(build / ('window-' + label + '.png'))],
+                           cwd=unrelated_cwd, check=True, timeout=30)
+            checks.append(label + ': GUI opens without writes and contains only Install and Restore buttons')
             assert '安装完成' in execute(game)
             actual = (game / 'RoadRash95.exe').read_bytes()
             assert digest(actual) == NATIVE[digest(before)], 'native PE differs from verified reference'

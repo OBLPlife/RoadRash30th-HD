@@ -7,10 +7,10 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
-[assembly: AssemblyTitle("暴力摩托 高清与分辨率补丁")]
+[assembly: AssemblyTitle("暴力摩托：30周年纪念版 高清与分辨率补丁")]
 [assembly: AssemblyDescription("Native HD, aspect ratio support and rendering fixes; no localization")]
-[assembly: AssemblyVersion("4.0.0.0")]
-[assembly: AssemblyFileVersion("4.0.0.0")]
+[assembly: AssemblyVersion("4.1.0.0")]
+[assembly: AssemblyFileVersion("4.1.0.0")]
 
 internal static class Installer
 {
@@ -179,23 +179,17 @@ internal static class Installer
         }
         finally { foreach (var op in operations) Cleanup(op.Temporary); }
     }
-    static void Report(string message, bool error, bool quiet)
+    static PatchResult Finish(string message, bool error)
     {
-        message += "\n\n许可：PolyForm Noncommercial License 1.0.0\nhttps://polyformproject.org/licenses/noncommercial/1.0.0";
-        try { File.WriteAllText(Path.Combine(Root, "RoadRash_HD_Setup.log"), message + "\n", Encoding.UTF8); }
+        string log = message + "\n\n许可：PolyForm Noncommercial License 1.0.0\nhttps://polyformproject.org/licenses/noncommercial/1.0.0";
+        try { File.WriteAllText(Path.Combine(Root, "RoadRash_HD_Setup.log"), log + Environment.NewLine, Encoding.UTF8); }
         catch (IOException) { } catch (UnauthorizedAccessException) { }
-        if (!quiet) MessageBox.Show(message, "暴力摩托 高清与分辨率补丁", MessageBoxButtons.OK,
-                                    error ? MessageBoxIcon.Error : MessageBoxIcon.Information);
+        return new PatchResult(!error, message);
     }
-    [STAThread]
-    static int Main(string[] args)
+    static PatchResult Execute(bool restore)
     {
-        bool quiet = Array.Exists(args, a => string.Equals(a, "/quiet", StringComparison.OrdinalIgnoreCase)), restore = false;
         try
         {
-            foreach (string arg in args)
-                if (string.Equals(arg, "/restore", StringComparison.OrdinalIgnoreCase)) restore = true;
-                else if (!string.Equals(arg, "/quiet", StringComparison.OrdinalIgnoreCase)) throw new ArgumentException("直接运行安装高清支持；添加 /restore 恢复安装前状态。");
             foreach (var process in Process.GetProcessesByName("RoadRash95"))
             {
                 process.Dispose(); throw new InvalidOperationException("请先退出暴力摩托，再运行本补丁。");
@@ -203,19 +197,48 @@ internal static class Installer
             var operations = Prepare(restore);
             if (operations.Count == 0)
             {
-                Report(restore ? "已经恢复安装前状态。" : "已经安装本版本高清支持，现有设置已保留。", false, quiet); return 0;
+                return Finish(restore ? "已经恢复安装前状态。" : "已经安装本版本高清支持，现有设置已保留。", false);
             }
             Apply(operations);
-            Report(restore ? "已恢复安装前程序和模块。分辨率配置文件已保留。" :
-                "高清、分辨率与渲染补丁安装完成。\n请从 Steam 启动游戏。\n在“画面与声音 → 比赛分辨率”选择原生或其他分辨率。\n英文菜单对应 Graphics and Sound → Race Resolution。\n\n已有汉化、分辨率设置和存档保持不变。", false, quiet);
-            return 0;
+            return Finish(restore ? "已恢复安装前程序和模块。分辨率配置文件已保留。" :
+                "高清、分辨率与渲染补丁安装完成。\n请从 Steam 启动游戏。\n在“画面与声音 → 比赛分辨率”选择原生或其他分辨率。\n英文菜单对应 Graphics and Sound → Race Resolution。\n\n已有汉化、分辨率设置和存档保持不变。", false);
         }
         catch (Exception error)
         {
             string message = error.Message;
             if (error is UnauthorizedAccessException || error.InnerException is UnauthorizedAccessException)
                 message += "\n当前目录没有写入权限，请以管理员身份运行本补丁。";
-            Report(message, true, quiet); return 1;
+            return Finish(message, true);
         }
+    }
+    static Form CreateWindow()
+    {
+        return new PatchWindow("暴力摩托：30周年纪念版 高清与分辨率补丁", Execute);
+    }
+    [STAThread]
+    static int Main(string[] args)
+    {
+        bool quiet = Array.Exists(args, a => string.Equals(a, "/quiet", StringComparison.OrdinalIgnoreCase)), restore = false;
+        foreach (string arg in args)
+        {
+            if (string.Equals(arg, "/restore", StringComparison.OrdinalIgnoreCase)) restore = true;
+            else if (!string.Equals(arg, "/quiet", StringComparison.OrdinalIgnoreCase))
+            {
+                var invalid = Finish("用法：双击打开安装与还原窗口；/restore 直接还原；/quiet 静默执行。", true);
+                if (!quiet) MessageBox.Show(invalid.Message, "暴力摩托：30周年纪念版 高清与分辨率补丁", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 1;
+            }
+        }
+        if (quiet || restore)
+        {
+            var result = Execute(restore);
+            if (!quiet) MessageBox.Show(result.Message, "暴力摩托：30周年纪念版 高清与分辨率补丁", MessageBoxButtons.OK,
+                                        result.Success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+            return result.Success ? 0 : 1;
+        }
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        using (var window = CreateWindow()) Application.Run(window);
+        return 0;
     }
 }
