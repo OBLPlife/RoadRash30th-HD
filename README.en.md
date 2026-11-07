@@ -6,8 +6,6 @@ An HD rendering and widescreen patch for **Road Rash: 30th Anniversary Edition**
 
 ## In-Game Screenshots
 
-These screenshots show the HD and widescreen patch in use. The menu screenshots also have the [separate Simplified Chinese patch](https://github.com/OBLPlife/RoadRash30th-Chinese) installed; **the HD patch itself does not include localization**.
-
 **Widescreen racing gameplay**
 
 ![Widescreen gameplay](screenshots/gameplay-wide.png)
