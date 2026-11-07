@@ -17,6 +17,7 @@ uintptr_t base;
 template<class T> T& at(uintptr_t va) { return *reinterpret_cast<T*>(base+va-0x400000); }
 template<class T> T fn(uintptr_t va) { return reinterpret_cast<T>(base+va-0x400000); }
 using DrawList = int (__cdecl*)();
+using AnimationFrame = uint8_t* (__fastcall*)(uint8_t*, int, int, int*);
 using Normalize = bool (__fastcall*)(int*, int);
 using Actor = void (__fastcall*)(void*);
 using HorizonLoad = int (__fastcall*)(const char*);
@@ -176,6 +177,24 @@ void status(const char* message) {
     if(logPath.empty()) return;
     FILE* f=nullptr;
     if(_wfopen_s(&f,logPath.c_str(),L"a")==0 && f) { std::fprintf(f,"%s\n",message);std::fclose(f); }
+}
+uint8_t* __fastcall animationFrameHook(uint8_t* animation,int sequence,int frame,int* duration) {
+    auto resource=*reinterpret_cast<const uint8_t* const*>(animation);
+    unsigned kind=*reinterpret_cast<const unsigned*>(resource+8);
+    // 0x41c700 returns null for resource kinds outside 1..4. The original
+    // frame selector nevertheless dereferences that result at 0x41bed2.
+    // Its caller already handles a null frame by skipping that actor's draw.
+    if(kind<1 || kind>4) {
+        if(duration)*duration=0;
+        static bool reported=false;
+        if(!reported) {
+            char message[160];std::snprintf(message,sizeof message,
+                "missing animation metadata: kind=%u sequence=%d frame=%d; skipped unsafe frame",kind,sequence,frame);
+            status(message);reported=true;
+        }
+        return nullptr;
+    }
+    return fn<AnimationFrame>(0x41be80)(animation,sequence,frame,duration);
 }
 bool writeMemory(uintptr_t address,const void* bytes,size_t length) {
     void* dest=reinterpret_cast<void*>(address);DWORD oldProtect;
@@ -553,6 +572,7 @@ bool initialize(HMODULE module) {
     base=reinterpret_cast<uintptr_t>(module);
     struct Hook {uintptr_t thunk,original;void* hook;};
     Hook hooks[]={
+        {0x401a2d,0x41be80,reinterpret_cast<void*>(&animationFrameHook)},
         {0x4058da,0x45ac50,reinterpret_cast<void*>(&frameHook)},
         {0x40132f,0x4688e0,reinterpret_cast<void*>(&listHook)},
         {0x4049a3,0x467b80,reinterpret_cast<void*>(&worldPresentHook)},
@@ -573,7 +593,7 @@ bool initialize(HMODULE module) {
     Stretch hook=&stretchHook;ok=writeMemory(base+0x21c15c,&hook,sizeof hook)&&ok;
     Fill fill=&fillHook;ok=writeMemory(base+0x21c728,&fill,sizeof fill)&&ok;
     ok=branch(0x45b3c0,reinterpret_cast<void*>(&resolutionMenuHook),0xe9)&&ok;
-    status(ok?"RoadRashHD v4: subpixel geometry, textured menu extension, parallel native raster and resolution menu":"hook installation failed");return ok;
+    status(ok?"RoadRashHD v5: animation null-metadata fix, subpixel geometry, textured menu extension and native raster":"hook installation failed");return ok;
 }
 }
 

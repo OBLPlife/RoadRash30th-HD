@@ -9,8 +9,8 @@ using System.Windows.Forms;
 
 [assembly: AssemblyTitle("暴力摩托：30周年纪念版 高清与分辨率补丁")]
 [assembly: AssemblyDescription("Native HD, aspect ratio support and rendering fixes; no localization")]
-[assembly: AssemblyVersion("4.1.0.0")]
-[assembly: AssemblyFileVersion("4.1.0.0")]
+[assembly: AssemblyVersion("5.0.0.0")]
+[assembly: AssemblyFileVersion("5.0.0.0")]
 
 internal static class Installer
 {

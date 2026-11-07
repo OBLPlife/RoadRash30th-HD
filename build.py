@@ -35,7 +35,7 @@ def build(vcvarsall, tests):
                 '/Fo:build\\hd_renderer.obj /Fe:build\\RoadRashHD.dll /link /Brepro '
                 '/DEF:src\\hd_renderer.def build\\hd_menu.res user32.lib gdi32.lib', 'if errorlevel 1 exit /b 1']
     if tests:
-        for name in ['hd_test', 'hd_loader_test', 'hd_perf_test']:
+        for name in ['hd_test', 'hd_loader_test', 'hd_perf_test', 'hd_animation_test']:
             commands.extend([f'cl /nologo /std:c++17 /O2 /MT /EHsc /W4 /utf-8 tests\\{name}.cpp '
                              f'/Fo:build\\{name}.obj /Fe:build\\{name}.exe /link user32.lib gdi32.lib',
                              'if errorlevel 1 exit /b 1'])
@@ -52,7 +52,7 @@ def build(vcvarsall, tests):
                     '/resource:' + str(ROOT / 'LICENSE') + ',LICENSE', '/reference:System.Windows.Forms.dll', '/reference:System.Drawing.dll',
                     str(ROOT / 'PatchWindow.cs'),
                     str(ROOT / 'Installer.cs'), str(ROOT / 'RendererPatch.cs')], check=True)
-    manifest = {'renderer_version': 4, 'installer_version': '4.1.0', 'license': 'PolyForm-Noncommercial-1.0.0',
+    manifest = {'renderer_version': 5, 'installer_version': '5.0.0', 'license': 'PolyForm-Noncommercial-1.0.0',
                 'game_files_embedded': False, 'localization_embedded': False,
                 'installer_bytes': exe.stat().st_size,
                 'installer_sha256': hashlib.sha256(exe.read_bytes()).hexdigest(),

@@ -25,7 +25,7 @@ internal static class RendererPatch
         string native;
         if (Versions.TryGetValue(hash, out native)) return native;
         if (Versions.ContainsValue(hash)) return hash;
-        throw new InvalidOperationException("游戏程序版本不匹配。\n支持 Steam build 26105967 英文原版、独立纯汉化版，以及对应的 v4 高清版。\n未修改游戏文件。");
+        throw new InvalidOperationException("游戏程序版本不匹配。\n支持 Steam build 26105967 英文原版、独立纯汉化版，以及对应的高清版。\n未修改游戏文件。");
     }
 
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]

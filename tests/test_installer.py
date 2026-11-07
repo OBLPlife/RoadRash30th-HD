@@ -83,6 +83,8 @@ def run(original_dir, localized_dir):
             assert (game / 'RoadRashHD.dll').read_bytes() == renderer
             assert (game / '分辨率补丁_安装前备份/RoadRash95.exe').read_bytes() == before
             subprocess.run([str(build / 'hd_loader_test.exe'), str(game / 'RoadRash95.exe')], check=True, timeout=30)
+            subprocess.run([str(build / 'hd_animation_test.exe'), str(game / 'RoadRash95.exe'),
+                            str(game / 'RoadRashHD.dll')], check=True, timeout=30)
             if label == 'english':
                 english_native = actual
             custom = b'[Graphics]\r\nEnabled=1\r\nRenderHeight=900\r\n; preserve my settings\r\n'
