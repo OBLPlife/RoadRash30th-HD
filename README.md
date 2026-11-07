@@ -6,6 +6,18 @@
 
 **汉化补丁请移步：** [RoadRash30th-Chinese](https://github.com/OBLPlife/RoadRash30th-Chinese)
 
+## 实机截图
+
+以下截图展示高清宽屏修复补丁的实机运行效果。菜单截图同时安装了[独立简体中文补丁](https://github.com/OBLPlife/RoadRash30th-Chinese)；**本仓库的高清补丁不包含汉化**。
+
+**宽屏比赛画面**
+
+![宽屏比赛实机画面](screenshots/gameplay-wide.png)
+
+| 游戏模式菜单 | 休息室菜单 |
+| :---: | :---: |
+| ![游戏模式菜单](screenshots/menu-game-mode.png) | ![休息室菜单](screenshots/menu-restroom.png) |
+
 ## 功能
 
 - **原生高清渲染**：以实际分辨率绘制比赛场景、道路和纹理物体。
@@ -17,7 +29,7 @@
 ## 安装
 
 1. 退出游戏。
-2. 从 [Releases](https://github.com/OBLPlife/RoadRash-HD/releases) 下载 `RoadRash_HD_Setup.exe`，放到游戏根目录（与 `RoadRash95.exe` 同一目录）。
+2. 从 [Releases](https://github.com/OBLPlife/RoadRash30th-HD/releases) 下载 `RoadRash_HD_Setup.exe`，放到游戏根目录（与 `RoadRash95.exe` 同一目录）。
 3. 双击安装器，完成后从 Steam 启动游戏。
 4. 进入 **画面与声音 → 比赛分辨率**，选择分辨率；英文版菜单为 **Graphics and Sound → Race Resolution**。更改后重新启动游戏生效。
 
