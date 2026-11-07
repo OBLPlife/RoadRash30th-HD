@@ -1,8 +1,10 @@
+[中文](README.md) | [English](README.en.md)
+
 # Road Rash: 30th Anniversary Edition — Automatic Native Resolution & HD Rendering Patch
 
 For the Steam edition of **Road Rash: 30th Anniversary Edition**, build **26105967**. Automatically detects the current game-window resolution and redraws race scenes at that resolution instead of simply stretching the original image. Works with the English original and the separately localized Chinese edition.
 
-**Chinese localization:** [RoadRash30th-Chinese](https://github.com/OBLPlife/RoadRash30th-Chinese) | [简体中文](README.md)
+**Chinese localization:** [RoadRash30th-Chinese](https://github.com/OBLPlife/RoadRash30th-Chinese)
 
 ## Install and Restore
 
