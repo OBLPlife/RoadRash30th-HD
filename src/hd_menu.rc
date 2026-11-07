@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+#pragma code_page(65001)
+#include <windows.h>
+
+101 DIALOGEX 0, 0, 268, 126
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "分辨率"
+FONT 9, "Microsoft YaHei UI"
+BEGIN
+    LTEXT "", 1001, 12, 12, 244, 16
+    LTEXT "渲染分辨率", -1, 12, 35, 76, 12
+    COMBOBOX 1002, 91, 32, 165, 120, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT "列表随窗口比例变化，保持物体比例。", -1, 12, 60, 244, 12
+    LTEXT "原生画面最清晰，降低分辨率可提高流畅度。", -1, 12, 77, 244, 12
+    DEFPUSHBUTTON "应用", IDOK, 132, 103, 58, 16
+    PUSHBUTTON "取消", IDCANCEL, 198, 103, 58, 16
+END
