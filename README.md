@@ -8,8 +8,6 @@
 
 ## 实机截图
 
-以下截图展示高清宽屏修复补丁的实机运行效果。菜单截图同时安装了[独立简体中文补丁](https://github.com/OBLPlife/RoadRash30th-Chinese)；**本仓库的高清补丁不包含汉化**。
-
 **宽屏比赛画面**
 
 ![宽屏比赛实机画面](screenshots/gameplay-wide.png)
