@@ -10,17 +10,17 @@
 
 **宽屏比赛画面**
 
-![宽屏比赛实机画面](screenshots/gameplay-wide.png)
+![宽屏比赛实机画面](screenshots/gameplay-wide.jpg)
 
 | 游戏模式菜单 | 休息室菜单 |
 | :---: | :---: |
-| ![游戏模式菜单](screenshots/menu-game-mode.png) | ![休息室菜单](screenshots/menu-restroom.png) |
+| ![游戏模式菜单](screenshots/menu-game-mode.jpg) | ![休息室菜单](screenshots/menu-restroom.jpg) |
 
 **游戏内分辨率设置（3440 × 1440）**
 
 | 分辨率列表 | 已选择的分辨率 |
 | :---: | :---: |
-| ![游戏内分辨率选择列表](screenshots/resolution-list.png) | ![3440 × 1440 分辨率设置](screenshots/resolution-selected.png) |
+| ![游戏内分辨率选择列表](screenshots/resolution-list.jpg) | ![3440 × 1440 分辨率设置](screenshots/resolution-selected.jpg) |
 
 ## 功能
 
